@@ -90,6 +90,8 @@ if df_veg_map:
     # Remove unnecessary columns for the table
     df_veg_map_table = df_veg_map.drop(columns=["openrice_url", "cuisine", "latitude", "longitude"])
     if len(df_veg_map) > 0:
+        restaurants_count = len(df_veg_map)
+        st.write(f"（找到{restaurants_count}個結果）")
         st.dataframe(df_veg_map_table,
                     hide_index=True,
                     use_container_width=True,
@@ -107,8 +109,6 @@ if df_veg_map:
 
         # Show the map
         st.header(f"📍 香港素食地圖")
-        restaurants_count = len(df_veg_map)
-        st.write(f"（找到{restaurants_count}個結果）")
         
         m = folium.Map(location=[df_veg_map.latitude.mean(), df_veg_map.longitude.mean()], 
                         zoom_start=11, control_scale=True)
