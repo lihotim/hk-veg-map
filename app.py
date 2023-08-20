@@ -3,7 +3,8 @@ import pandas as pd
 import folium
 from streamlit_folium import st_folium, folium_static
 
-
+# features to add:
+# add "opening time" column in csv
 
 
 @st.cache_data
