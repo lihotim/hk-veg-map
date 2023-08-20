@@ -48,26 +48,26 @@ st.title("🥗 香港素食餐廳大全")
 selected_HK_district = st.multiselect(
     '選擇香港地區：',
     HK_DISTRICTS,
-    default=HK_DISTRICTS
+    default=HK_DISTRICTS,
 )
 
 if "港島" in selected_HK_district:
     selected_HK_island_district = st.multiselect(
         '選擇港島地區：',
         DISTRICTS_HK_ISLAND,
-        default=DISTRICTS_HK_ISLAND
+        default=DISTRICTS_HK_ISLAND,
     )
 if "九龍" in selected_HK_district:
     selected_kowloon_district = st.multiselect(
         '選擇九龍地區：',
         DISTRICTS_KOWLOON,
-        default=DISTRICTS_KOWLOON
+        default=DISTRICTS_KOWLOON,
     )
 if "新界" in selected_HK_district:
     selected_NT_district = st.multiselect(
         '選擇新界地區：',
         DISTRICTS_NT,
-        default=DISTRICTS_NT
+        default=DISTRICTS_NT,
     )
 
 
@@ -142,7 +142,7 @@ if df_veg_map:
         st_data = folium_static(m, width=700)
         
     else:
-        st.warning("No restaurants found!")
+        st.warning("找不到餐廳！")
 
 
 
