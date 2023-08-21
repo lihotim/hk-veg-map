@@ -2,10 +2,22 @@ import streamlit as st
 import pandas as pd
 import folium
 from streamlit_folium import st_folium, folium_static
+from pathlib import Path
 
 # features to add:
 # add "opening time" column in csv
 
+CONTACT_EMAIL = "lihotim@connect.hku.hk"
+
+# --- PATH SETTINGS ---
+THIS_DIR = Path(__file__).parent if "__file__" in locals() else Path.cwd()
+ASSETS_DIR = THIS_DIR / "assets"
+STYLES_DIR = THIS_DIR / "styles"
+CSS_FILE = STYLES_DIR / "main.css"
+
+def load_css_file(css_file_path):
+    with open(css_file_path) as f:
+        return st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 @st.cache_data
 def get_csv_data():
@@ -31,16 +43,20 @@ st.set_page_config(
     layout="wide",  # You can choose "wide" or "centered"
     initial_sidebar_state="auto"  # You can choose "auto", "expanded", or "collapsed"
 )
+load_css_file(CSS_FILE)
 
 df_veg = get_csv_data()
-
+# print(df_veg)
 
 # Get lists of districts
-HK_DISTRICTS = df_veg['hk_district'].unique().tolist()
+# HK_DISTRICTS = df_veg['hk_district'].unique().tolist()
+HK_DISTRICTS = ['港島', '九龍', '新界', '離島']
 DISTRICTS_HK_ISLAND = df_veg[df_veg['hk_district'] == '港島']['district'].unique().tolist()
 DISTRICTS_KOWLOON = df_veg[df_veg['hk_district'] == '九龍']['district'].unique().tolist()
 DISTRICTS_NT = df_veg[df_veg['hk_district'] == '新界']['district'].unique().tolist()
+DISTRICTS_ISLANDS = df_veg[df_veg['hk_district'] == '離島']['district'].unique().tolist()
 
+print(HK_DISTRICTS)
 
 # Mainpage
 st.title("🥗 香港素食餐廳大全")
@@ -70,6 +86,12 @@ if "新界" in selected_HK_district:
         DISTRICTS_NT,
         default=DISTRICTS_NT,
     )
+if "離島" in selected_HK_district:
+    selected_islands_district = st.multiselect(
+        '選擇離島地區：',
+        DISTRICTS_ISLANDS,
+        default=DISTRICTS_ISLANDS,
+    )
 
 
 df_veg_map = []
@@ -84,6 +106,9 @@ if "九龍" in selected_HK_district:
 if "新界" in selected_HK_district:
     df_veg_NT = df_veg[df_veg['district'].isin(selected_NT_district)]
     df_veg_map.append(df_veg_NT)
+if "離島" in selected_HK_district:
+    df_veg_islands = df_veg[df_veg['district'].isin(selected_islands_district)]
+    df_veg_map.append(df_veg_islands)
 
 
 if df_veg_map:
@@ -145,3 +170,16 @@ if df_veg_map:
     else:
         st.warning("找不到餐廳！")
 
+
+st.divider()
+st.header("有素食餐廳想告訴我們嗎？")
+contact_form = f"""
+    <form action="https://formsubmit.co/{CONTACT_EMAIL}" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="name" placeholder="您的名字" required>
+        <input type="email" name="email" placeholder="您的電郵" required>
+        <textarea name="message" placeholder="請輸入您的訊息"></textarea>
+        <button type="submit" class="button">送出 ✉</button>
+    </form>
+    """
+st.markdown(contact_form, unsafe_allow_html=True)
