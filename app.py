@@ -106,6 +106,7 @@ if "九龍" in selected_HK_district:
 if "新界" in selected_HK_district:
     df_veg_NT = df_veg[df_veg['district'].isin(selected_NT_district)]
     df_veg_map.append(df_veg_NT)
+    
 if "離島" in selected_HK_district:
     df_veg_islands = df_veg[df_veg['district'].isin(selected_islands_district)]
     df_veg_map.append(df_veg_islands)
