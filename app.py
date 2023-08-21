@@ -111,7 +111,7 @@ if df_veg_map:
         # Show the map
         st.header(f"📍 香港素食地圖")
         
-        m = folium.Map(location=[df_veg_map.latitude.mean(), df_veg_map.longitude.mean()], 
+        m = folium.Map(location=[df_veg_map.latitude.mean() + 0.08, df_veg_map.longitude.mean() - 0.02], 
                         zoom_start=11, control_scale=True)
 
         # Loop through each row in the dataframe
