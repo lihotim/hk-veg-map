@@ -60,7 +60,7 @@ print(HK_DISTRICTS)
 
 # Mainpage
 st.title("🥗 香港素食餐廳大全")
-st.info(f"更新至2023年8月20日。「素食類型」如果查不到資料一律當「蛋奶素」，請自行向店家查詢。大部分資料來自Google，如有任何錯漏敬請見諒。 - By Tim" )
+st.info(f"更新至2023年8月21日。「素食類型」如果查不到資料一律當「蛋奶素」，請自行向店家查詢。大部分資料來自Google，如有任何錯漏敬請見諒。 - By Tim" )
 
 selected_HK_district = st.multiselect(
     '選擇香港地區：',
