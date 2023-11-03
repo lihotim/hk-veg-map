@@ -59,9 +59,8 @@ DISTRICTS_ISLANDS = df_veg[df_veg['hk_district'] == '離島']['district'].unique
 # print(HK_DISTRICTS)
 
 NOTICE_TEXT = '''
-    更新至2023年10月29日。「素食類型」如果查不到資料一律當「蛋奶素」，請自行向店家查詢。   
-    大部分資料來自Google及OpenRice，如有任何錯漏敬請見諒。   
-    - By Tim
+    更新至2023年11月3日。「素食類型」如果查不到資料一律當「蛋奶素」，請自行向店家查詢。大部分資料來自Google及OpenRice，如有任何錯漏敬請見諒。   
+    --- By Tim ---
 '''
 
 USER_GUIDE = '''
@@ -75,16 +74,16 @@ USER_GUIDE = '''
 
 # Mainpage
 st.title("🥗 香港素食餐廳大全 & 素食地圖")
-st.code(NOTICE_TEXT)
-st.code(USER_GUIDE)
+st.info(NOTICE_TEXT)
+st.divider()
+st.markdown(USER_GUIDE)
+st.divider()
 
 selected_HK_district = st.multiselect(
     '選擇香港地區：',
     HK_DISTRICTS,
     default=HK_DISTRICTS,
 )
-
-st.divider()
 
 if "港島" in selected_HK_district:
     selected_HK_island_district = st.multiselect(
