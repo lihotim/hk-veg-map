@@ -38,7 +38,7 @@ def get_csv_data():
 
 # Page config
 st.set_page_config(
-    page_title="香港素食餐廳大全",
+    page_title="香港素食餐廳大全 & 素食地圖",
     page_icon="🥗",
     layout="wide",  # You can choose "wide" or "centered"
     initial_sidebar_state="auto"  # You can choose "auto", "expanded", or "collapsed"
@@ -58,15 +58,33 @@ DISTRICTS_ISLANDS = df_veg[df_veg['hk_district'] == '離島']['district'].unique
 
 # print(HK_DISTRICTS)
 
+NOTICE_TEXT = '''
+    更新至2023年10月29日。「素食類型」如果查不到資料一律當「蛋奶素」，請自行向店家查詢。   
+    大部分資料來自Google及OpenRice，如有任何錯漏敬請見諒。   
+    - By Tim
+'''
+
+USER_GUIDE = '''
+    使用方法：
+    1. 點選【香港地區】。按綠色按鈕內的「X」可以移除該地區；按右邊的灰色「X」可以移除所有地區。按選擇欄任何位置可以選擇個別地區。
+    2. 點選【地區】。按綠色按鈕內的「X」可以移除該地區；按右邊的灰色「X」可以移除所有地區。按選擇欄任何位置可以選擇個別地區。
+    3. 表格會顯示合乎選擇條件的餐廳名單。
+    4. 地圖會顯示所有合乎選擇條件餐廳的座標（綠色氣球）。點擊座標可以顯示該餐廳的詳細資料，以及是Openrice連結。
+    5. 由於Google提供的座標未必完全準確，座標跟餐廳的實際位置可能會有幾個舖位的出入，請自行用地址查找餐廳。祝您用餐愉快！
+'''
+
 # Mainpage
-st.title("🥗 香港素食餐廳大全")
-st.info(f"更新至2023年10月29日。「素食類型」如果查不到資料一律當「蛋奶素」，請自行向店家查詢。大部分資料來自Google及OpenRice，如有任何錯漏敬請見諒。 - By Tim" )
+st.title("🥗 香港素食餐廳大全 & 素食地圖")
+st.code(NOTICE_TEXT)
+st.code(USER_GUIDE)
 
 selected_HK_district = st.multiselect(
     '選擇香港地區：',
     HK_DISTRICTS,
     default=HK_DISTRICTS,
 )
+
+st.divider()
 
 if "港島" in selected_HK_district:
     selected_HK_island_district = st.multiselect(
@@ -93,6 +111,7 @@ if "離島" in selected_HK_district:
         default=DISTRICTS_ISLANDS,
     )
 
+st.divider()
 
 df_veg_map = []
 if "港島" in selected_HK_district:
@@ -118,7 +137,7 @@ if df_veg_map:
     df_veg_map_table = df_veg_map.drop(columns=["openrice_url", "cuisine", "latitude", "longitude"])
     if len(df_veg_map) > 0:
         restaurants_count = len(df_veg_map)
-        st.write(f"（找到{restaurants_count}個結果）")
+        st.subheader(f"找到{restaurants_count}個結果：")
         st.dataframe(df_veg_map_table,
                     hide_index=True,
                     use_container_width=True,
