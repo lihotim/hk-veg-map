@@ -38,7 +38,7 @@ def get_csv_data():
 
 # Page config
 st.set_page_config(
-    page_title="香港素食餐廳大全 & 素食地圖",
+    page_title="香港素食地圖",
     page_icon="🥗",
     layout="wide",  # You can choose "wide" or "centered"
     initial_sidebar_state="auto"  # You can choose "auto", "expanded", or "collapsed"
@@ -59,7 +59,7 @@ DISTRICTS_ISLANDS = df_veg[df_veg['hk_district'] == '離島']['district'].unique
 # print(HK_DISTRICTS)
 
 NOTICE_TEXT = '''
-    更新至2024年9月1日。「素食類型」如果查不到資料一律當「蛋奶素」，請自行向店家查詢。大部分資料來自Google及OpenRice，如有任何錯漏敬請見諒。
+    更新至2024年11月18日。「素食類型」如果查不到資料一律當「蛋奶素」，請自行向店家查詢。大部分資料來自Google及OpenRice，如有任何錯漏敬請見諒。
 '''
 
 USER_GUIDE = '''
@@ -72,7 +72,7 @@ USER_GUIDE = '''
 '''
 
 # Mainpage
-st.title("🥗 香港素食餐廳大全 & 素食地圖")
+st.title("🥗 香港素食地圖")
 st.info(NOTICE_TEXT)
 st.divider()
 st.markdown(USER_GUIDE)
@@ -189,15 +189,15 @@ if df_veg_map:
         st.warning("找不到餐廳！")
 
 
-st.divider()
-st.header("有素食餐廳想告訴我們嗎？")
-contact_form = f"""
-    <form action="https://formsubmit.co/{CONTACT_EMAIL}" method="POST">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="name" placeholder="您的名字" required>
-        <input type="email" name="email" placeholder="您的電郵" required>
-        <textarea name="message" placeholder="請輸入您的訊息"></textarea>
-        <button type="submit" class="button">送出 ✉</button>
-    </form>
-    """
-st.markdown(contact_form, unsafe_allow_html=True)
+# st.divider()
+# st.header("有素食餐廳想告訴我們嗎？")
+# contact_form = f"""
+#     <form action="https://formsubmit.co/{CONTACT_EMAIL}" method="POST">
+#         <input type="hidden" name="_captcha" value="false">
+#         <input type="text" name="name" placeholder="您的名字" required>
+#         <input type="email" name="email" placeholder="您的電郵" required>
+#         <textarea name="message" placeholder="請輸入您的訊息"></textarea>
+#         <button type="submit" class="button">送出 ✉</button>
+#     </form>
+#     """
+# st.markdown(contact_form, unsafe_allow_html=True)
