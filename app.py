@@ -59,7 +59,7 @@ DISTRICTS_ISLANDS = df_veg[df_veg['hk_district'] == '離島']['district'].unique
 # print(HK_DISTRICTS)
 
 NOTICE_TEXT = '''
-    更新至2024年11月25日。「素食類型」如果查不到資料一律當「蛋奶素」，請自行向店家查詢。大部分資料來自Google及OpenRice，如有任何錯漏敬請見諒。
+    更新至2024年11月27日。「素食類型」如果查不到資料一律當「蛋奶素」，請自行向店家查詢。大部分資料來自Google及OpenRice，如有任何錯漏敬請見諒。
 '''
 
 USER_GUIDE = '''
